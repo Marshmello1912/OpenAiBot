@@ -39,12 +39,10 @@ async def get_gpt_answer(message: types.Message, state: FSMContext):
             data['questions'].append({"role": 'user', "content": message.text})
             answer = await create_text_answer(data["questions"])
             data['questions'].append({"role": 'assistant', "content": answer})
-    print(123)
     await message.answer(answer)
 
 
 async def dalle_set(callback_query: types.callback_query, state: FSMContext):
-    print(33333)
     await Form.Dalle.set()
     await callback_query.message.delete()
     await callback_query.message.answer('Теперь укажите промпт...', reply_markup=keyboard.exitChat)
