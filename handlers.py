@@ -43,10 +43,11 @@ async def get_gpt_answer(message: types.Message, state: FSMContext):
     await message.answer(answer)
 
 
-async def dalle_set(message: types.Message, state: FSMContext):
+async def dalle_set(callback_query: types.callback_query, state: FSMContext):
+    print(33333)
     await Form.Dalle.set()
-
-    await message.answer('Теперь укажите промпт...')
+    await callback_query.message.delete()
+    await callback_query.message.answer('Теперь укажите промпт...', reply_markup=keyboard.exitChat)
 
 
 async def get_dalle_answer(message: types.Message, state: FSMContext):
@@ -70,6 +71,6 @@ def register_handlers(dp: Dispatcher):
     dp.register_message_handler(exit_from_states, lambda m:m.text == 'На главную', state='*')
     dp.register_callback_query_handler(gpt_set,lambda c:c.data =='/ask', state=None)
     dp.register_message_handler(get_gpt_answer, state=Form.Gpt)
-    dp.register_message_handler(dalle_set, commands=['img'], state=None)
+    dp.register_callback_query_handler(dalle_set, lambda c:c.data == '/img', state=None)
     dp.register_message_handler(get_dalle_answer, state=Form.Dalle)
     dp.register_message_handler(help_command, commands=['help'])
