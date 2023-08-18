@@ -11,14 +11,7 @@ async def start_command(message: types.Message, state: FSMContext):
 
 async def help_command(message: types.Message, state: FSMContext):
     await message.answer(
-        """Данный бот предназначен для более легкого обращения к сервисам OpenAi, в частности:Chat-GPT3 и DALL-E.
-Чтобы обратиться с вопросом к Chat-Gpt испольуйте комманду /ask запрос
-Пример:
-/ask Напиши сортировку пузырьком на Python.
-    
-Чтобы оратиться с запросом к DALL-E используйте команду /img запрос
-Пример:
-/img Зеленый кот.""")
+        """Данный бот предназначен для более легкого обращения к сервисам OpenAi, в частности:Chat-GPT3 и DALL-E.""")
 
 
 async def gpt_set(callback_query: types.CallbackQuery, state: FSMContext):
